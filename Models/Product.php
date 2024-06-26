@@ -10,6 +10,10 @@ class Product extends Animal
     public function __construct(string $_title, string $_type)
     {
         $this->title = $_title;
+
+        if ($_type !== "food" && $_type !== "toy" && $_type !== "kennel") {
+            throw new Exception("I tipi di prodotti sono 'food', 'toy' o 'kennel'");
+        }
         $this->type = $_type;
     }
 
