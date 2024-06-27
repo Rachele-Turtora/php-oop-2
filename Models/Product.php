@@ -1,20 +1,16 @@
 <?php
 
-require_once __DIR__ . '/Animal.php';
-class Product extends Animal
+require_once __DIR__ . '/Category.php';
+class Product
 {
     private string $title;
-    private int $price;
-    private string $type;
+    private float $price = 0;
+    private Category $category;
 
-    public function __construct(string $_title, string $_type)
+    public function __construct(string $_title, Category $_category)
     {
         $this->title = $_title;
-
-        if ($_type !== "food" && $_type !== "toy" && $_type !== "kennel") {
-            throw new Exception("I tipi di prodotti sono 'food', 'toy' o 'kennel'");
-        }
-        $this->type = $_type;
+        $this->setCategory($_category);
     }
 
     public function getTitle(): string
@@ -22,21 +18,31 @@ class Product extends Animal
         return $this->title;
     }
 
-    public function getType(): string
+    public function setPrice(float $_price): void
     {
-        return $this->type;
-    }
-
-    public function setPrice(int $_price): void
-    {
-        if (!is_int($_price)) {
-            throw new TypeError("Il prezzo deve essere un intero");
+        if (!is_float($_price)) {
+            throw new TypeError("Il prezzo deve essere un numero");
         }
         $this->price = $_price;
     }
 
-    public function getPrice(): int
+    public function getPrice(): float
     {
         return $this->price;
+    }
+
+    public function setCategory(Category $_category): void
+    {
+        $this->category = $_category;
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+
+    public function getCurrentType()
+    {
+        return get_class($this);
     }
 }
